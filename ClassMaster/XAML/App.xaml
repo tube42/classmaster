@@ -1,0 +1,149 @@
+﻿<Application 
+  x:Class="ClassMaster.App"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"       
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+  xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"    
+  xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone">
+  
+  <!--Application Resources-->
+  <Application.Resources>
+    
+    <Style x:Key="TransitionPageStyle" TargetType="phone:PhoneApplicationPage">
+      <Setter Property="toolkit:TransitionService.NavigationInTransition">
+        <Setter.Value>
+          <toolkit:NavigationInTransition>
+            
+            <toolkit:NavigationInTransition.Backward>
+              <toolkit:SlideTransition Mode="SlideRightFadeIn"/>
+            </toolkit:NavigationInTransition.Backward>
+            
+            <toolkit:NavigationInTransition.Forward>
+              <toolkit:SlideTransition Mode="SlideLeftFadeIn"/>
+            </toolkit:NavigationInTransition.Forward>              
+          </toolkit:NavigationInTransition>
+        </Setter.Value>
+      </Setter>
+      
+      <Setter Property="toolkit:TransitionService.NavigationOutTransition">
+        <Setter.Value>
+          <toolkit:NavigationOutTransition>
+            <toolkit:NavigationOutTransition.Backward>
+              <toolkit:SlideTransition Mode="SlideRightFadeOut"/>                
+            </toolkit:NavigationOutTransition.Backward>
+            <toolkit:NavigationOutTransition.Forward>
+              <toolkit:SlideTransition Mode="SlideLeftFadeOut"/>
+            </toolkit:NavigationOutTransition.Forward>
+          </toolkit:NavigationOutTransition>
+        </Setter.Value>
+      </Setter>
+    </Style>
+
+    <!-- HierarchyTemplate -->
+    <DataTemplate x:Key="HierarchyTemplate">
+      <StackPanel>
+        <TextBlock Text="{Binding ClassName}" Style="{StaticResource PhoneTextLargeStyle}" 
+                   TextWrapping="Wrap" Margin="0 0 0 0" />
+        <TextBlock Text="{Binding Namespace}" Style="{StaticResource PhoneTextNormalStyle}"
+                   TextWrapping="Wrap" Margin="0 0 0 24" />
+      </StackPanel>
+    </DataTemplate>
+
+    
+    <!-- Item templates -->
+    <DataTemplate x:Key="ItemTemplate">
+      <StackPanel>
+        <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Foreground="{StaticResource PhoneAccentBrush}"
+                   FontSize="{StaticResource PhoneFontSizeLarge}"  />
+        <TextBlock Text="{Binding Text}" Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" 
+                   Margin="0 0 0 12"/>
+      </StackPanel>
+    </DataTemplate>
+    
+    <!-- list box templates -->
+    <DataTemplate x:Key="AssemblyTemplate">
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        <Grid Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="48" Height="48" >
+          <Rectangle Fill="{Binding Color}"/>                
+        </Grid>        
+        <TextBlock Grid.Column="1"
+          Text="{Binding Name}"
+          FontSize="{StaticResource PhoneFontSizeLarge}" Margin="18" 
+          VerticalAlignment="Center" TextWrapping="Wrap" />        
+        
+    </Grid>          
+      
+    </DataTemplate>        
+    
+    <!-- namespace template -->
+    <DataTemplate x:Key="NamespaceTemplate">
+      <Grid Margin="0 0 0 12">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0" Width="96" Height ="64">
+          <TextBlock Text="{Binding TypeLetter}" FontWeight="ExtraBold"
+            Foreground="{StaticResource PhoneAccentBrush}"  
+            VerticalAlignment="Center" HorizontalAlignment="Center"   FontSize="64" />
+        </Grid>
+      
+        <StackPanel Grid.Column="1" >
+          <TextBlock          
+            Text="{Binding DisplayName}"
+            FontSize="{StaticResource PhoneFontSizeLarge}" Margin="18 18 0 0" VerticalAlignment="Center" TextWrapping="Wrap" />
+          
+          
+          <TextBlock          
+            Text="{Binding Desc}"
+            Style="{StaticResource PhoneTextNormalStyle}" Margin="18 0 0 18" VerticalAlignment="Center" TextWrapping="Wrap" />
+         
+          </StackPanel>
+      </Grid>     
+    </DataTemplate>
+    
+    
+    <!-- Class template -->
+    <DataTemplate x:Key="ClassContentTemplate">
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        <TextBlock Grid.Column="0" 
+          Text="{Binding TypeLetter}"
+          Foreground="{StaticResource PhoneAccentBrush}" Margin="18 0 18 18" VerticalAlignment="Center" FontSize="48" />
+        
+        <StackPanel Grid.Column="1" >          
+          <TextBlock          
+            Text="{Binding DescTop}"
+            Style="{StaticResource PhoneTextSmallStyle}" Margin="0 18 0 0" VerticalAlignment="Center" TextWrapping="Wrap" />
+          
+          <TextBlock          
+            Text="{Binding Name}"
+            FontSize="{StaticResource PhoneFontSizeLarge}" Margin="0" VerticalAlignment="Center" TextWrapping="Wrap" />
+                    
+          <TextBlock          
+            Text="{Binding DescBottom}"
+            Style="{StaticResource PhoneTextSmallStyle}" Margin="0 0 0 18" VerticalAlignment="Center" TextWrapping="Wrap" />                  
+          </StackPanel>
+      </Grid>     
+    </DataTemplate>
+    
+  </Application.Resources>
+  
+  <Application.ApplicationLifetimeObjects>
+    <!--Required object that handles lifetime events for the application-->
+    <shell:PhoneApplicationService 
+      Launching="Application_Launching" Closing="Application_Closing" 
+      Activated="Application_Activated" Deactivated="Application_Deactivated"/>
+  </Application.ApplicationLifetimeObjects>
+  
+</Application>
